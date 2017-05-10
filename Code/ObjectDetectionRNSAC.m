@@ -21,7 +21,7 @@ function obPC = ObjectDetectionRNSAC(pts, t, maxIt, IR)
       
        for i = 1:length(pts)
            FX = P(i,:);
-           if(FX > t)
+           if( FX > t)
                inliners = [inliners; i];
                count = count + 1;
                 
