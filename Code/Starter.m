@@ -7,8 +7,8 @@ clc
 clear all
 close all
 
-single = 0;
-multiple = 1;
+single = 1;
+multiple = 0;
 %% Setup Paths and Read RGB and Depth Images
 
 % Isolate Background and do ICP for single scene
@@ -19,10 +19,10 @@ if single == 1
     ImName = {'frame', 'image','frame','frame','frame','frame','frame','frame'};
     TH = [30,15,30,30,30,30,30,30];
     InR = [0.2,0.2,0.20,0.20,0.2,0.2,0.2,0.2];
-    if ~exist('Points_single.mat', 'file')
+    if ~exist('Pointsrefined_single.mat', 'file')
         [Points, r, g, b] = isolate_background(Path, singleScenes, FrameN, ImName, TH, InR, single);
     else
-        load Points_single.mat
+        load Pointsrefined_single.mat
     end
     [P, r, b ,g] = ICP_Wrapper(singleScenes, FrameN,Points,r,g, b);
     
@@ -36,10 +36,10 @@ if multiple == 1
     ImName = {'frame','frame','frame','frame','frame'};
     TH = [30, 40, 40, 30, 30];
     InR = [0.3, 0.4, 0.3, 0.2, 0.3];
-    if ~exist('Points_multiple.mat', 'file')
+    if ~exist('Pointsrefined_multiple.mat', 'file')
         [Points, r, g, b] = isolate_background(Path, multipleScenes, FrameN, ImName, TH, InR, single);
     else
-        load Points_multiple.mat
+        load Pointsrefined_multiple.mat
     end
     [P, r, b ,g] = ICP_Wrapper(multipleScenes, FrameN,Points,r,g, b);
 

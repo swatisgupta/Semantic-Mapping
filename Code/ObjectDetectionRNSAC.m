@@ -39,7 +39,7 @@ function obPC = ObjectDetectionRNSAC(pts, t, maxIt, IR)
 end
 
 
-function OB = post_processing(inliners, pts)
+function final_idx = post_processing(inliners, pts)
     OB = [];
     if ~isempty(inliners)
      minpts = sort(pts(inliners,:));
@@ -52,5 +52,10 @@ function OB = post_processing(inliners, pts)
             OB = [OB; inliners(i)];
         end    
      end
-    end  
+    end
+    indices = find(pts(:,3) < 1000);
+    final_idx = intersect(indices, OB);
+    
 end
+
+

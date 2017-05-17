@@ -1,13 +1,13 @@
 function [Points, r, g, b] = isolate_background(Path, Scenes, FrameN, ImName, TH, InR, single)
 
 for SceneNum = 1: length(Scenes) %length(singleScenes)
-% for SceneNum = 1:1
+    % for SceneNum = 1:1
     SceneName = sprintf('%0.3d', Scenes(SceneNum));
     Opoints = []; Or = []; Og = []; Ob = [];
     disp('------------------------------------------------------------------------------------')
     disp(['Starting Scene ', num2str(SceneNum)]);
-        for i = 1:FrameN(SceneNum)
-%     for i = 1:16
+    %         for i = 1:FrameN(SceneNum)
+    for i = 1:16
         FrameNum = num2str(i);
         disp(['Starting RANSAC on frame ', FrameNum]);
         f1 = sprintf('scene_%s/frames/%s_%s_rgb.png',SceneName,ImName{SceneNum},FrameNum);
@@ -45,18 +45,18 @@ for SceneNum = 1: length(Scenes) %length(singleScenes)
             r{SceneNum,i} = r2(cell2mat(ObjCld(SceneNum,i)));
             g{SceneNum,i} = g2(cell2mat(ObjCld(SceneNum,i)));
             b{SceneNum,i} = b2(cell2mat(ObjCld(SceneNum,i)));
-            %             figure, pcshow(cell2mat(Points(SceneNum,i)),[cell2mat(r(SceneNum,i)) cell2mat(g(SceneNum,i)) cell2mat(b(SceneNum,i))]/255), drawnow, title('3D Point Cloud');
+%             figure, pcshow(cell2mat(Points(SceneNum,i)),[cell2mat(r(SceneNum,i)) cell2mat(g(SceneNum,i)) cell2mat(b(SceneNum,i))]/255), drawnow, title('3D Point Cloud');
         end
     end
-   
+    
 end
 if (single == 1)
-if ~exist('Points_single.mat', 'file')
-    save 'Points_single.mat'
-end 
+    if ~exist('Pointsrefined_single.mat', 'file')
+        save 'Pointsrefined_single.mat'
+    end
 else
-    if ~exist('Points_multiple.mat', 'file')
-    save 'Points_multiple.mat'
+    if ~exist('Pointsrefined_multiple.mat', 'file')
+        save 'Pointsrefined_multiple.mat'
     end
 end
 end
